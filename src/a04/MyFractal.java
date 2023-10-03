@@ -7,32 +7,43 @@ import edu.princeton.cs.algs4.StdDraw;
  * Inspired by The Legend of Zelda Triforce
  * 
  * @author Zach Royer
+ * 
  */
 public class MyFractal {
 
 	/*
-	 * Method to draw one shape of the larger fractal whole, to be positioned where
-	 * it needs to be
+	 * Method to draw one shape of the larger fractal whole with positional
+	 * parameters
 	 * 
-	 * @param double x-coordinate
-	 * @param double y-coordinate
-	 * @param double size of shape
+	 * @param x-coordinate array
+	 * 
+	 * @param y-coordinate array
+	 * 
+	 * @param size of triangle
 	 */
-	private static void drawTriangle(double x, double y, double size) {
-		StdDraw.setPenColor(StdDraw.BLUE);
-		
+	private static void drawTriangle(double x[], double y[], double size) {
+		StdDraw.setPenColor(StdDraw.YELLOW);
+		StdDraw.filledPolygon(null, null);
 	}
 
 	/*
-	 * Recursive method to draw fractal shape with 'size' number of branches
+	 * Recursive method to draw fractal shape with 'n' number of branches
 	 * 
 	 * @param n number of subfractals to draw
-	 * @param double x of 
+	 * 
+	 * @param x-coordinate
+	 * 
+	 * @param y-coordinate
+	 * 
+	 * @param size of fractal
 	 */
 	public static void draw(int n, double x, double y, double size) {
 
 		if (n == 0)
 			return;
+		int initial = n;
+		
+		while (n )
 
 		drawTriangle(x, y, size);
 
@@ -46,10 +57,14 @@ public class MyFractal {
 		draw(n - 1, x0, y0, size / 2); // lower left H-tree
 		draw(n - 1, x0, y1, size / 2); // upper left H-tree
 		draw(n - 1, x1, y0, size / 2); // lower right H-tree
-		draw(n - 1, x1, y1, size / 2); // upper right H-tree
+
 	}
 
-	// reads an integer command-line argument n and plots an order n H-tree
+	/*
+	 * Reads an integer command-line argument n and plots an order n Serpinski Triangle 
+	 * If n == 2, The Legend of Zelda Triforce will be displayed
+	 *
+	 */
 	public static void main(String[] args) {
 		int n = 8;
 		double x = 0.5, y = 0.5; // center of H-tree
