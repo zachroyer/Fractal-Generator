@@ -1,4 +1,5 @@
 package a04;
+
 import edu.princeton.cs.algs4.StdDraw;
 
 /*
@@ -23,10 +24,6 @@ public class HTreeBrushStroke {
 																					// of H
 		StdDraw.picture(x0, y, "Resources/BrushStrokeVertical.png", 0.025, size); // left brush stroke vertical segment
 																					// of H
-
-//        StdDraw.line(x0, y0, x0, y1);    // left  vertical segment of the H
-//        StdDraw.line(x1, y0, x1, y1);    // right vertical segment of the H
-//        StdDraw.line(x0,  y, x1,  y);    // connect the two vertical segments of the H
 	}
 
 	// plot an order n H-tree, centered on (x, y) of the given side length

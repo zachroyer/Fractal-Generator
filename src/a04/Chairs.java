@@ -1,4 +1,5 @@
 package a04;
+
 import edu.princeton.cs.algs4.StdDraw;
 
 public class Chairs {
