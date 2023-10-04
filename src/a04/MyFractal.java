@@ -50,7 +50,15 @@ public class MyFractal {
 		drawRecursively(n - 1, x, y + halfSize / 2, halfSize, level + 1);
 	}
 
+	public static void setTriangleDimensions(double[] xarr, double[] yarr) {
+		xarr[0] += ((xarr[1] - xarr[0]) / 2);
+		xarr[2] -= ((xarr[2] - xarr[1]) / 2);
 
+		double tempy = yarr[0];
+		yarr[0] += ((yarr[1] - yarr[0]) / 2);
+		yarr[1] = tempy;
+		yarr[2] = yarr[0];
+	}
 
 	public static void drawRecursively(int n, double x, double y, double size, int level) {
 		if (n <= 0)
@@ -64,33 +72,14 @@ public class MyFractal {
 		if (level == 0) {
 			// Draw the black triangle
 			drawTriangle(xarr, yarr, StdDraw.BLACK);
-			
-			xarr[0] += ((xarr[1] - xarr[0]) / 2);
-			xarr[2] -= ((xarr[2] - xarr[1]) / 2);
-
-			double tempy = yarr[0];
-			yarr[0] += ((yarr[1] - yarr[0]) / 2);
-			yarr[1] = tempy;
-			yarr[2] = yarr[0];
+			setTriangleDimensions(xarr, yarr);
 			drawTriangle(xarr, yarr, StdDraw.YELLOW);
 			level += 1;
-
 			drawNextOrder(n, x, y, halfSize, level);
-
 		} else {
-
-			xarr[0] += ((xarr[1] - xarr[0]) / 2);
-			xarr[2] -= ((xarr[2] - xarr[1]) / 2);
-
-			double tempy = yarr[0];
-			yarr[0] += ((yarr[1] - yarr[0]) / 2);
-			yarr[1] = tempy;
-			yarr[2] = yarr[0];
+			setTriangleDimensions(xarr, yarr);
 			drawTriangle(xarr, yarr, StdDraw.YELLOW);
-
 			level += 1;
-			// Recursively draw smaller triangles
-			// Bottom left triangle
 			drawNextOrder(n, x, y, halfSize, level);
 		}
 	}
