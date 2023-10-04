@@ -13,8 +13,6 @@ import edu.princeton.cs.algs4.StdDraw;
  */
 public class MyFractal {
 
-	final int level = 0;
-
 	/*
 	 * Method to draw one shape of the larger fractal whole with positional
 	 * parameters
@@ -43,16 +41,23 @@ public class MyFractal {
 	 * @param size of fractal
 	 */
 
+//	public static void drawTriangle(double[] xarr, double[] yarr, Color color) {
+//	    StdDraw.setPenColor(color);
+//	    StdDraw.filledPolygon(xarr, yarr);
+//	}
+//
+//	
 	public static void draw(int n, double x, double y, double size, int level) {
-
 		if (n <= 0)
 			return;
 
-		// Initial triangle, base of the Serpinski triangle
-		if (level == 0)
-		{
-			double[] xarr = new double[] { x - 0.38, x, x + 0.38 };
-			double[] yarr = new double[] { y - 0.1, y + 0.45, y - 0.1 };
+		double halfSize = size / 2;
+		double[] xarr = new double[] { x - halfSize, x, x + halfSize };
+		double[] yarr = new double[] { y - halfSize, y + halfSize, y - halfSize };
+
+		// If at the base level, draw the smaller yellow triangle inside
+		if (level == 0) {
+			// Draw the black triangle
 			drawTriangle(xarr, yarr, StdDraw.BLACK);
 
 			xarr[0] += ((xarr[1] - xarr[0]) / 2);
@@ -62,38 +67,37 @@ public class MyFractal {
 			yarr[0] += ((yarr[1] - yarr[0]) / 2);
 			yarr[1] = tempy;
 			yarr[2] = yarr[0];
-
 			drawTriangle(xarr, yarr, StdDraw.YELLOW);
+			System.out.println(level);
+			level += 1;
+			// Bottom Left triangle
+			draw(n - 1, x - halfSize / 2, y - halfSize / 2, halfSize, level);
+			// Bottom right triangle
+			draw(n - 1, x + halfSize / 2, y - halfSize / 2, halfSize, level + 1);
+			// Top middle triangle
+			draw(n - 1, x, y + halfSize / 2, halfSize, level + 1);
 		} else {
 
+			xarr[0] += ((xarr[1] - xarr[0]) / 2);
+			xarr[2] -= ((xarr[2] - xarr[1]) / 2);
 
+			double tempy = yarr[0];
+			yarr[0] += ((yarr[1] - yarr[0]) / 2);
+			yarr[1] = tempy;
+			yarr[2] = yarr[0];
+			drawTriangle(xarr, yarr, StdDraw.YELLOW);
+
+			level += 1;
+			// Recursively draw smaller triangles
+			// Bottom left triangle
+			draw(n - 1, x - halfSize / 2, y - halfSize / 2, halfSize, level);
+
+			// Bottom right triangle
+			draw(n - 1, x + halfSize / 2, y - halfSize / 2, halfSize, level + 1);
+
+			// Top middle triangle
+			draw(n - 1, x, y + halfSize / 2, halfSize, level + 1);
 		}
-
-//		// compute x- and y-coordinates of the 3 half-size triangles
-//		double x0 = x - size / 2;
-//		double x1 = x + size / 2;
-//		double y0 = y - size / 2;
-//		double y1 = y + size / 2;
-
-		// Size of each smaller triangle
-		double newSize = size / 2;
-		
-		// Compute the coordinates of the three smaller triangles
-		// and recursively draw them.
-
-		// Bottom left triangle
-		draw(n - 1, x - newSize / 2, y - newSize / 2, newSize, level - 1);
-
-		// Bottom right triangle
-		draw(n - 1, x + newSize / 2, y - newSize / 2, newSize, level - 1);
-
-		// Top middle triangle
-		draw(n - 1, x, y + newSize / 2, newSize, level - 1);
-//		// recursively draw 3 half-size triangles of order n-1
-//		draw(n - 1, x0, y0, size / 2, level + 1); // lower left H-tree
-//		draw(n - 1, x0, y1, size / 2, level + 1); // upper left H-tree
-//		draw(n - 1, x1, y0, size / 2, level + 1); // lower right H-tree
-
 	}
 
 	/*
@@ -102,13 +106,14 @@ public class MyFractal {
 	 *
 	 */
 	public static void main(String[] args) {
-		int n = 3;
+		int n = 6;
 		double x = 0.5, y = 0.5; // center of H-tree
-		double size = 0.5; // side length of H-tree
+		double size = 1; // side length of H-tree
 		for (int i = 1; i <= n; i++) {
 			draw(i, x, y, size, 0);
 			StdDraw.pause(2000);
 		}
+
 	}
 
 }
